@@ -2,8 +2,10 @@ import { Router } from "express";
 import userSchema from "../models/userSchema.js";
 import { hashPassword } from "../utils/hashPassword.js";
 import { checkPassword } from "../utils/checkPassword.js";
-
+// import OpenAI from 'openai';
 const userRouter = Router();
+
+
 
 //C
 async function registerUser(req, res) {
@@ -79,5 +81,7 @@ async function LoginUser(req, res) {
   });
 }
 userRouter.post("/loginUser", LoginUser);
+
+
 
 export default userRouter;

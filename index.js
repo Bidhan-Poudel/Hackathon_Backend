@@ -2,9 +2,11 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userRouter from "./routes/users.js";
-// import cors from "cors";
+import adviseRouter from "./routes/advise.js";
+import cors from "cors";
 
 dotenv.config();
+
 
 const { ENVIRONMENT, MONGODB_LOCAL, MONGODB_PROD } = process.env;
 
@@ -22,7 +24,7 @@ mongoose
     console.log(err);
   });
 
-
+app.use(cors())
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json()); 
 
@@ -30,7 +32,7 @@ app.use(express.json());
 
 // Uses imported routes in express
 app.use("/user", userRouter);
-
+app.use('/advise',adviseRouter);
 app.use("/", (req, res) => {
   res.send("reply from server");
 });
