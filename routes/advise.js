@@ -13,22 +13,11 @@ const openai = new OpenAI({
 });
 
 const adviseGet = async (req, res) => {
-    const { details } = req.body;
+    const { location } = req.body;
+    console.log("location: ",req.body)
     let score=0
-    // console.log(details)
-    // const userAns=details.Summary.split(" ")
-    // console.log(userAns)
-    // userAns.map(n=>{
-    //   if(n==='renewable' || n==='energy' || n==='refers' || n==='to'|| n==='that'){
-    //     score++;
-    //   }
-    // })
-    // // const {Paragraph}=details
-    
-    // return res.json(response)
-    
-    // const question=await questionSchema.findOne({Qno:1})
-    const prompt='route to visit in'+details+' show it in Route1: [destination1->destination2->destination3] form show 4 different routes show with minimum 4 different destinations the route should be enclosed in box bracket'
+
+    const prompt='route to visit in'+location+' show it in Route1: [destination1->destination2->destination3] form show 4 different routes show with minimum 4 different destinations the route should be enclosed in box bracket'
     try {
         const completion = await openai.chat.completions.create({
             messages: [{ role: "system", content: prompt }],
@@ -50,7 +39,18 @@ const adviseGet = async (req, res) => {
         //     console.error('Error:', err.message);
         //     return res.status(500).json({ error: 'Internal Server Error' });
         // }
-        return res.json(JSON.parse(route))
+      const foundData=await adviseSchema.findOne({
+        location
+      })
+      if(foundData){
+        // console.log("route",JSON.parse(route))
+        // console.log("visit ", JSON.parse())
+        return res.json(JSON.parse(foundData.trip))
+      }
+      else{
+        return 0
+      }
+
     }
 };
 adviseRouter.post('/get',adviseGet)
