@@ -3,7 +3,7 @@ import { OpenAI } from "openai";
 const nearRouter = Router();
 
 const openai = new OpenAI({
-  apiKey: "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",
+  apiKey: "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",
   models: {
     "text-davinci-003":
       "https://api.openai.com/v1/engines/text-davinci-003/completions",

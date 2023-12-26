@@ -5,6 +5,33 @@ import { checkPassword } from "../utils/checkPassword.js";
 
 const userRouter = Router();
 
+async function updateSubscription(req, res) {
+  const bod = req.body;
+  const email = bod.email;
+  console.log(bod);
+  try {
+    // Find the user by email and update the subscription field
+    const updatedUser = await User.findOneAndUpdate(
+      { email },
+      { $set: { subscription: true } },
+      { new: true } // Returns the updated document
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    return res.json({
+      message: "Subscription updated successfully",
+      user: updatedUser,
+    });
+  } catch (error) {
+    console.error("Error updating subscription:", error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+}
+userRouter.post("/updateSubscription", updateSubscription);
+
 //C
 async function registerUser(req, res) {
   const { name, email, password } = req.body;
