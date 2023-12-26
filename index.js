@@ -45,7 +45,7 @@ const authMiddleWare = async (req, res, next) => {
 // Uses imported routes in express
 app.use("/user", userRouter);
 app.use("/near", nearRouter);
-app.use("/advise", authMiddleWare);
+// app.use("/advise", authMiddleWare);
 app.use("/advise", adviseRouter);
 app.use("/payment", paymentRouter);
 // app.use("/", (req, res) => {
