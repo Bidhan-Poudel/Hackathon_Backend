@@ -3,7 +3,8 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userRouter from "./routes/users.js";
 import hotelRouter from "./routes/hotel.js";
-// import cors from "cors";
+import resturantRouter from "./routes/resturant.js";
+import cors from "cors";
 
 dotenv.config();
 
@@ -22,8 +23,8 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
-
-
+app.use(cors())
+  
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json()); 
 
@@ -32,6 +33,7 @@ app.use(express.json());
 // Uses imported routes in express
 app.use("/user", userRouter);
 app.use("/hotel", hotelRouter);
+app.use("/resturant",resturantRouter);
 
 app.use("/", (req, res) => {
   res.send("reply from server");
