@@ -20,7 +20,7 @@ async function registerHotel(req, res) {
   if (hotelExists) {
     return res.status(400).json({
       success: false,
-      message: "Email already exists",
+      message: "Hotel already exists",
     });
   }
   const user = hotelSchema({
